@@ -43,4 +43,8 @@ private:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category= "Input", meta = (AllowPrivateAccess = "true"))
 	class UInputAction* MoveAction;
+	
+	/** Speed */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "Speed", meta = (AllowPrivateAccess = "true"))
+	float Speed = 100.f;
 };

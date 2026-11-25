@@ -56,7 +56,7 @@ void AHero::Move(const FInputActionValue& Value)
 	if (abs(MoveActionValue.Y) > 0)
 	{
 		FVector CurrentLocation = GetActorLocation();
-		FVector DistanceToMove = GetActorUpVector() * FVector(0.f, 0.f, 100.f) * MoveActionValue.Y * GetWorld()->GetDeltaSeconds();
+		FVector DistanceToMove = GetActorUpVector() * Speed * MoveActionValue.Y * GetWorld()->GetDeltaSeconds();
 		FVector NewLocation = CurrentLocation + DistanceToMove;
 		SetActorLocation(NewLocation);
 	}
@@ -64,7 +64,7 @@ void AHero::Move(const FInputActionValue& Value)
 	if (abs(MoveActionValue.X) > 0)
 	{
 		FVector CurrentLocation = GetActorLocation();
-		FVector DistanceToMove = GetActorForwardVector() * FVector(100.f, 0.f, 0.f) * MoveActionValue.X * GetWorld()->GetDeltaSeconds();
+		FVector DistanceToMove = GetActorForwardVector() * Speed * MoveActionValue.X * GetWorld()->GetDeltaSeconds();
 		FVector NewLocation = CurrentLocation + DistanceToMove;
 		SetActorLocation(NewLocation);
 	}
