@@ -52,4 +52,21 @@ void AHero::Move(const FInputActionValue& Value)
 {
 	FVector2D MoveActionValue = Value.Get<FVector2D>();
 	GEngine->AddOnScreenDebugMessage(1, 10.f, FColor::White, MoveActionValue.ToString());
+	
+	if (abs(MoveActionValue.Y) > 0)
+	{
+		FVector CurrentLocation = GetActorLocation();
+		FVector DistanceToMove = GetActorUpVector() * FVector(0.f, 0.f, 100.f) * MoveActionValue.Y * GetWorld()->GetDeltaSeconds();
+		FVector NewLocation = CurrentLocation + DistanceToMove;
+		SetActorLocation(NewLocation);
+	}
+	
+	if (abs(MoveActionValue.X) > 0)
+	{
+		FVector CurrentLocation = GetActorLocation();
+		FVector DistanceToMove = GetActorForwardVector() * FVector(100.f, 0.f, 0.f) * MoveActionValue.X * GetWorld()->GetDeltaSeconds();
+		FVector NewLocation = CurrentLocation + DistanceToMove;
+		SetActorLocation(NewLocation);
+	}
+	
 }
