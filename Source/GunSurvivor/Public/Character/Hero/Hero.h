@@ -22,12 +22,14 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	
-public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	
 	/** Move action */
 	void Move(const FInputActionValue& Value);
+	
+	/** Update direction hero */
+	void UpdateDirection(float _MoveDirection);
 	
 private:
 	/** Camera */

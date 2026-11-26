@@ -63,10 +63,33 @@ void AHero::Move(const FInputActionValue& Value)
 	
 	if (abs(MoveActionValue.X) > 0)
 	{
+		UpdateDirection(MoveActionValue.X);
+		
 		FVector CurrentLocation = GetActorLocation();
-		FVector DistanceToMove = GetActorForwardVector() * Speed * MoveActionValue.X * GetWorld()->GetDeltaSeconds();
+		FVector DistanceToMove = GetActorForwardVector() * Speed * GetWorld()->GetDeltaSeconds();
 		FVector NewLocation = CurrentLocation + DistanceToMove;
 		SetActorLocation(NewLocation);
 	}
 	
+}
+
+void AHero::UpdateDirection(float _MoveDirection)
+{
+	FRotator CurrentRotation = Controller->GetControlRotation();
+	
+	if (_MoveDirection > 0.f)
+	{
+		if (CurrentRotation.Yaw != 0.f)
+		{
+			Controller->SetControlRotation(FRotator(CurrentRotation.Pitch, 0.f, CurrentRotation.Roll));
+		}
+	}
+	
+	if (_MoveDirection < 0.f)
+	{
+		if (CurrentRotation.Yaw != 180.f)
+		{
+			Controller->SetControlRotation(FRotator(CurrentRotation.Pitch, 180.f, CurrentRotation.Roll));
+		}
+	}
 }
