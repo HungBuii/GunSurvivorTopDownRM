@@ -45,6 +45,7 @@ void AHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AHero::Move);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &AHero::MoveCompleted);
 	}
 }
 
@@ -52,6 +53,7 @@ void AHero::Move(const FInputActionValue& Value)
 {
 	FVector2D MoveActionValue = Value.Get<FVector2D>();
 	GEngine->AddOnScreenDebugMessage(1, 10.f, FColor::White, MoveActionValue.ToString());
+	CurrentMoveValue = MoveActionValue;
 	
 	if (abs(MoveActionValue.Y) > 0)
 	{
@@ -73,6 +75,11 @@ void AHero::Move(const FInputActionValue& Value)
 	
 }
 
+void AHero::MoveCompleted()
+{
+	CurrentMoveValue = FVector2D::ZeroVector;
+}
+
 void AHero::UpdateDirection(float _MoveDirection)
 {
 	FRotator CurrentRotation = Controller->GetControlRotation();
@@ -92,4 +99,9 @@ void AHero::UpdateDirection(float _MoveDirection)
 			Controller->SetControlRotation(FRotator(CurrentRotation.Pitch, 180.f, CurrentRotation.Roll));
 		}
 	}
+}
+
+FVector2D AHero::GetCurrentMoveValue() const
+{
+	return CurrentMoveValue;
 }

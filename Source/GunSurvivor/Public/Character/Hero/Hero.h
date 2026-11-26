@@ -27,9 +27,15 @@ protected:
 	
 	/** Move action */
 	void Move(const FInputActionValue& Value);
+	void MoveCompleted();
 	
 	/** Update direction hero */
 	void UpdateDirection(float _MoveDirection);
+	
+public:
+	/** Get move value when press button */
+	UFUNCTION(BlueprintCallable, Category = "Input Value")
+	FVector2D GetCurrentMoveValue() const;
 	
 private:
 	/** Camera */
@@ -49,4 +55,7 @@ private:
 	/** Speed */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "Speed", meta = (AllowPrivateAccess = "true"))
 	float Speed = 100.f;
+	
+	/** Store move value when press button */
+	FVector2D CurrentMoveValue = FVector2D::ZeroVector;
 };
